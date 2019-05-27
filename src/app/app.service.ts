@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Member } from './shared/models/member.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,8 @@ export class AppService {
   // If true, the application will utilize node API
   DEBUG: Boolean = true;
   api: string;
+  private selectedMember = new BehaviorSubject<Member>(null);
+  dataSelectedMember = this.selectedMember.asObservable();
 
   constructor(private http: HttpClient) {
     if (this.DEBUG) {
@@ -50,6 +52,11 @@ export class AppService {
     return this.http
       .get(`${this.api}/teams`)
       .pipe(catchError(this.handleError));
+  }
+
+  setSelectedMember(selected: Member): void {
+    console.log('selected', selected);
+    this.selectedMember.next(selected);
   }
 
   private handleError(error: HttpErrorResponse) {

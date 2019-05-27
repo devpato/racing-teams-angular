@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { Member } from 'src/app/shared/models/member.model';
+import { AppService } from 'src/app/app.service';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -8,9 +11,12 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class ModalComponent implements OnInit {
   closeResult: string;
   @ViewChild('content') content: any;
-  constructor(private modalService: NgbModal) {}
+  selectedMember: Member;
+  constructor(private modalService: NgbModal, private apiService: AppService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getSelectedMember();
+  }
 
   open() {
     this.modalService
@@ -18,5 +24,11 @@ export class ModalComponent implements OnInit {
       .result.then(result => {
         this.closeResult = `Closed with: ${result}`;
       });
+  }
+
+  getSelectedMember() {
+    this.apiService.dataSelectedMember.subscribe(
+      selectedMember => (this.selectedMember = selectedMember)
+    );
   }
 }

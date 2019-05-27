@@ -29,6 +29,7 @@ export class MembersComponent implements OnInit {
   }
 
   editMemberByID(member: Member): void {
+    this.appService.setSelectedMember(member);
     this.modal.open();
     // this.appService.updateMember(member);
   }
