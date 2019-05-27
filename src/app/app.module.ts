@@ -23,6 +23,10 @@ const ROUTES = [
   {
     path: 'members',
     component: MembersComponent
+  },
+  {
+    path: 'details',
+    component: MemberDetailsComponent
   }
 ];
 

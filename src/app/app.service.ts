@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Member } from './shared/models/member.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +28,20 @@ export class AppService {
       .pipe(catchError(this.handleError));
   }
 
-  addMember(memberForm) {}
+  addMember(memberForm: Member) {
+    this.http.post(`${this.api}/members`, memberForm).subscribe(
+      data => {
+        console.log('POST Request is successful ', data);
+      },
+      error => {
+        console.log('Error', error);
+      }
+    );
+  }
 
   getTeams() {
     return this.http
-      .get(`${this.api}/members`)
+      .get(`${this.api}/teams`)
       .pipe(catchError(this.handleError));
   }
 

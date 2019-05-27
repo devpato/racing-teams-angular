@@ -53,7 +53,13 @@ app.get('/api/teams', (req, res) => {
 });
 
 // Submit Form!
-app.post('/api/addMember', (req, res) => {});
+app.post('/api/members', function(request, response) {
+  request.post('http://localhost:3000/members', (err, response, body) => {
+    if (response.statusCode <= 500) {
+      req.send(body);
+    }
+  });
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/softrams-racing/index.html'));

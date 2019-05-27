@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,34 +7,29 @@ import {
 } from '@angular/forms';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
+import { Member } from '../shared/models/member.model';
+import { Observable } from 'rxjs';
 
 // This interface may be useful in the times ahead...
-interface Member {
-  firstName: string;
-  lastName: string;
-  jobTitle: string;
-  team: string;
-  status: string;
-}
 
 @Component({
   selector: 'app-member-details',
   templateUrl: './member-details.component.html',
   styleUrls: ['./member-details.component.css']
 })
-export class MemberDetailsComponent implements OnInit, OnChanges {
+export class MemberDetailsComponent implements OnInit {
   memberModel: Member;
   submitted = false;
   alertType: String;
   alertMessage: String;
-  teams = [];
+  $teams: Observable<any>;
 
-  memberForm = new FormGroup({
-    firstName: new FormControl(),
-    lastName: new FormControl(),
-    jobTitle: new FormControl(),
-    team: new FormControl(),
-    status: new FormControl()
+  memberForm = this.fb.group({
+    firstName: [],
+    lastName: [],
+    jobTitle: [],
+    team: [],
+    status: []
   });
 
   constructor(
@@ -43,12 +38,21 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
     private router: Router
   ) {}
 
-  ngOnInit() {}
-
-  ngOnChanges() {}
+  ngOnInit(): void {
+    this.buildTeamsDropdown();
+  }
 
   // TODO: Add member to members
-  onSubmit(form: FormGroup) {
+  onSubmit(form: FormGroup): void {
     this.memberModel = form.value;
+    this.addNewMember(this.memberModel);
+  }
+
+  buildTeamsDropdown(): void {
+    this.$teams = this.appService.getTeams();
+  }
+
+  addNewMember(member: Member): void {
+    this.appService.addMember(member);
   }
 }
