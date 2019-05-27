@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Member } from './shared/models/member.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,15 +29,10 @@ export class AppService {
       .pipe(catchError(this.handleError));
   }
 
-  addMember(memberForm: Member) {
-    this.http.post(`${this.api}/members`, memberForm).subscribe(
-      data => {
-        console.log('POST Request is successful ', data);
-      },
-      error => {
-        console.log('Error', error);
-      }
-    );
+  addMember(memberForm: Member): Observable<Member> {
+    return this.http
+      .post(`${this.api}/members`, memberForm)
+      .pipe(catchError(this.handleError));
   }
 
   deleteMember(id: number): void {
