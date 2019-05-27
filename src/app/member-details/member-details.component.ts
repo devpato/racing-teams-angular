@@ -55,4 +55,20 @@ export class MemberDetailsComponent implements OnInit {
   addNewMember(member: Member): void {
     this.appService.addMember(member);
   }
+
+  deleteMember(id: number): void {
+    this.appService.deleteMember(id);
+  }
+
+  updateMember(): void {
+    const member = {
+      firstName: 'qqqqqq',
+      id: 3,
+      jobTitle: 'ux',
+      lastName: 'aaaa',
+      status: 'Active',
+      team: 'Formula 1 - Car 8'
+    };
+    this.appService.updateMember(member);
+  }
 }
