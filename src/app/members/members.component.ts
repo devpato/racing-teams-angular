@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Member } from '../shared/models/member.model';
 
 @Component({
   selector: 'app-members',
@@ -8,16 +10,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements OnInit {
-  members = [];
+  $members: Observable<Member[]>;
 
   constructor(private appService: AppService, private router: Router) {}
 
   ngOnInit() {
-    this.appService.getMembers().subscribe((members) => (this.members = members));
+    this.$members = this.appService.getMembers();
   }
 
   goToAddMemberForm() {
-    console.log(`Hmmm...we didn't navigate anywhere`);
+    this.router.navigate(['/details']);
   }
 
   editMemberByID(id: number) {}
