@@ -39,6 +39,29 @@ export class AppService {
     );
   }
 
+  deleteMember(id: number): void {
+    const url = `${this.api}/members/${id}`;
+    this.http.delete(url).subscribe(
+      data => {
+        console.log('POST Request is successful ', data);
+      },
+      error => {
+        console.log('Error', error);
+      }
+    );
+  }
+
+  updateMember(member: any) {
+    return this.http.put(`${this.api}/members/${member.id}`, member).subscribe(
+      data => {
+        console.log('PATCH Request is successful ', data);
+      },
+      error => {
+        console.log('Error', error);
+      }
+    );
+  }
+
   getTeams() {
     return this.http
       .get(`${this.api}/teams`)
