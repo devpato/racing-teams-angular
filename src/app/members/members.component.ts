@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Member } from '../shared/models/member.model';
+import { ModalComponent } from '../components/modal/modal.component';
 
 @Component({
   selector: 'app-members',
@@ -11,6 +12,7 @@ import { Member } from '../shared/models/member.model';
 })
 export class MembersComponent implements OnInit {
   $members: Observable<Member[]>;
+  @ViewChild('myModal') modal: ModalComponent;
 
   constructor(private appService: AppService, private router: Router) {}
 
@@ -27,7 +29,8 @@ export class MembersComponent implements OnInit {
   }
 
   editMemberByID(member: Member): void {
-    this.appService.updateMember(member);
+    this.modal.open();
+    // this.appService.updateMember(member);
   }
 
   deleteMemberById(id: number): void {

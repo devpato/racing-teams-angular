@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { BannerComponent } from './banner/banner.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
 import { MembersComponent } from './members/members.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 // We may be missing a route...
 const ROUTES = [
@@ -36,14 +38,17 @@ const ROUTES = [
     AppComponent,
     MemberDetailsComponent,
     MembersComponent,
-    BannerComponent
+    BannerComponent,
+    ModalComponent
   ],
+  entryComponents: [ModalComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModalModule
   ],
   providers: [AppService, HttpClient],
   bootstrap: [AppComponent]

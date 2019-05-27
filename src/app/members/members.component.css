@@ -12,7 +12,9 @@
   align-items: center;
   justify-content: space-evenly;
 }
-
+i {
+  cursor: pointer;
+}
 .edit {
   color: gold;
 }
