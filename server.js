@@ -45,13 +45,15 @@ app.get('/api/members', (req, res) => {
 
 // TODO: Dropdown!
 app.get('/api/teams', (req, res) => {
-
+  request('http://localhost:3000/teams', (err, response, body) => {
+    if (response.statusCode <= 500) {
+      res.send(body);
+    }
+  });
 });
 
 // Submit Form!
-app.post('/api/addMember', (req, res) => {
-
-});
+app.post('/api/addMember', (req, res) => {});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/softrams-racing/index.html'));

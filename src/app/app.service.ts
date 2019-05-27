@@ -7,7 +7,6 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AppService {
-
   // If false, the application will run on 4200 and call json-server directly
   // If true, the application will utilize node API
   DEBUG: Boolean = true;
@@ -23,7 +22,9 @@ export class AppService {
 
   // Returns all members
   getMembers() {
-    return this.http.get(`${this.api}/members`).pipe(catchError(this.handleError));
+    return this.http
+      .get(`${this.api}/members`)
+      .pipe(catchError(this.handleError));
   }
 
   addMember(memberForm) {}
@@ -34,7 +35,9 @@ export class AppService {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
     } else {
-      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
+      console.error(
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+      );
     }
     return [];
   }
