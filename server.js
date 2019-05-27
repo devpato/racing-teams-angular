@@ -61,6 +61,22 @@ app.post('/api/members', function(request, response) {
   });
 });
 
+app.delete('/api/members', function(request, response) {
+  request.delete('http://localhost:3000/members', (err, response, body) => {
+    if (response.statusCode <= 500) {
+      req.send(body);
+    }
+  });
+});
+
+app.put('/api/members/:id', function(request, response) {
+  request.put('http://localhost:3000/members/:id', (err, response, body) => {
+    if (response.statusCode <= 500) {
+      req.send(body);
+    }
+  });
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/softrams-racing/index.html'));
 });
