@@ -45,6 +45,7 @@
           class="col-md-6 custom-select"
           required
         >
+          <option selected>--SELECT A TEAM--</option>
           <option *ngFor="let team of $teams | async as teams">{{
             team.teamName
           }}</option>
@@ -83,6 +84,3 @@
     </button>
   </form>
 </div>
-
-<button (click)="deleteMember(2)">Delete</button>
-<button (click)="updateMember()">Update</button>
