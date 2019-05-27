@@ -35,27 +35,15 @@ export class AppService {
       .pipe(catchError(this.handleError));
   }
 
-  deleteMember(id: number): void {
+  deleteMember(id: number): Observable<Member> {
     const url = `${this.api}/members/${id}`;
-    this.http.delete(url).subscribe(
-      data => {
-        console.log('POST Request is successful ', data);
-      },
-      error => {
-        console.log('Error', error);
-      }
-    );
+    return this.http.delete(url).pipe(catchError(this.handleError));
   }
 
   updateMember(member: any) {
-    return this.http.put(`${this.api}/members/${member.id}`, member).subscribe(
-      data => {
-        console.log('PATCH Request is successful ', data);
-      },
-      error => {
-        console.log('Error', error);
-      }
-    );
+    return this.http
+      .put(`${this.api}/members/${member.id}`, member)
+      .pipe(catchError(this.handleError));
   }
 
   getTeams() {

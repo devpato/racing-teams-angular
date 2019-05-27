@@ -15,6 +15,7 @@
         <th>Job Title</th>
         <th>Racing Team</th>
         <th>Status</th>
+        <th class="actions-header">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -25,6 +26,15 @@
         <td>{{ member.jobTitle }}</td>
         <td>{{ member.team }}</td>
         <td>{{ member.status }}</td>
+        <td>
+          <div class="actions">
+            <i
+              class="far fa-trash-alt delete"
+              (click)="deleteMemberById(member.id)"
+            ></i>
+            <i class="far fa-edit edit" (click)="editMemberByID(member)"></i>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

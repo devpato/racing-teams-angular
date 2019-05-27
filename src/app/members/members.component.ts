@@ -15,14 +15,29 @@ export class MembersComponent implements OnInit {
   constructor(private appService: AppService, private router: Router) {}
 
   ngOnInit() {
-    this.$members = this.appService.getMembers();
+    this.pullMembers();
   }
 
   goToAddMemberForm() {
     this.router.navigate(['/details']);
   }
 
-  editMemberByID(id: number) {}
+  pullMembers(): void {
+    this.$members = this.appService.getMembers();
+  }
 
-  deleteMemberById(id: number) {}
+  editMemberByID(member: Member): void {
+    this.appService.updateMember(member);
+  }
+
+  deleteMemberById(id: number): void {
+    this.appService.deleteMember(id).subscribe(
+      () => {
+        this.pullMembers();
+      },
+      error => {
+        console.log('Error', error);
+      }
+    );
+  }
 }
