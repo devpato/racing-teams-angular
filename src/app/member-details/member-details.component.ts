@@ -53,7 +53,14 @@ export class MemberDetailsComponent implements OnInit {
   }
 
   addNewMember(member: Member): void {
-    this.appService.addMember(member);
+    this.appService.addMember(member).subscribe(
+      () => {
+        this.router.navigate(['/members']);
+      },
+      error => {
+        console.log('Error', error);
+      }
+    );
   }
 
   deleteMember(id: number): void {
