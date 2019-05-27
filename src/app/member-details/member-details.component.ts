@@ -1,5 +1,10 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from '@angular/forms';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
 
@@ -19,13 +24,24 @@ interface Member {
 })
 export class MemberDetailsComponent implements OnInit, OnChanges {
   memberModel: Member;
-  memberForm: FormGroup;
   submitted = false;
   alertType: String;
   alertMessage: String;
   teams = [];
 
-  constructor(private fb: FormBuilder, private appService: AppService, private router: Router) {}
+  memberForm = new FormGroup({
+    firstName: new FormControl(),
+    lastName: new FormControl(),
+    jobTitle: new FormControl(),
+    team: new FormControl(),
+    status: new FormControl()
+  });
+
+  constructor(
+    private fb: FormBuilder,
+    private appService: AppService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 

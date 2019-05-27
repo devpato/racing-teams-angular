@@ -29,7 +29,11 @@ export class AppService {
 
   addMember(memberForm) {}
 
-  getTeams() {}
+  getTeams() {
+    return this.http
+      .get(`${this.api}/members`)
+      .pipe(catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

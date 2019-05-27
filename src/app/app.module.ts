@@ -28,7 +28,12 @@ const ROUTES = [
 
 // Notice how both FormsModule and ReactiveFormsModule imported...choices, choices!
 @NgModule({
-  declarations: [AppComponent, BannerComponent, MemberDetailsComponent, MembersComponent],
+  declarations: [
+    AppComponent,
+    MemberDetailsComponent,
+    MembersComponent,
+    BannerComponent
+  ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
