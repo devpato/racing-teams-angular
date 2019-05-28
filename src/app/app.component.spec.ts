@@ -18,7 +18,7 @@ describe('AppComponent', () => {
   it(`should have as title 'Welcome to race!'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Welcome to race!');
+    expect(app.title).toEqual('softrams-racing');
   });
 
   it('should render title in a h1 tag', () => {

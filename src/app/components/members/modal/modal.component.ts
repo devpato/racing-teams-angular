@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
   closeResult: string;
@@ -22,7 +22,6 @@ export class ModalComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private appService: AppService,
     private fb: FormBuilder,
     private store: Store<{ memebers: Member[] }>
   ) {}

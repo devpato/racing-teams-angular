@@ -12,7 +12,7 @@ import * as RacingActions from '../../shared/state/actions/racing.actions';
 @Component({
   selector: 'app-member-details',
   templateUrl: './member-details.component.html',
-  styleUrls: ['./member-details.component.scss']
+  styleUrls: ['./member-details.component.css']
 })
 export class MemberDetailsComponent implements OnInit {
   memberModel: Member;

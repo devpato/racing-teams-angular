@@ -10,7 +10,7 @@ import * as RacingActions from '../../shared/state/actions/racing.actions';
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
-  styleUrls: ['./members.component.scss']
+  styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements OnInit {
   $members: Observable<Member[]>;
