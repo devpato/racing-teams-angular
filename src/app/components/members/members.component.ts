@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AppService } from '../app.service';
+import { AppService } from '../../app.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Member } from '../shared/models/member.model';
-import { ModalComponent } from '../components/modal/modal.component';
-import { UiService } from '../shared/services/ui.service';
+import { Member } from '../../shared/models/member.model';
+import { ModalComponent } from './modal/modal.component';
+import { UiService } from '../../shared/services/ui.service';
 
 @Component({
   selector: 'app-members',

@@ -5,14 +5,12 @@ import {
   Validators,
   FormControl
 } from '@angular/forms';
-import { AppService } from '../app.service';
+import { AppService } from '../../app.service';
 import { Router } from '@angular/router';
-import { Member } from '../shared/models/member.model';
+import { Member } from '../../shared/models/member.model';
 import { Observable } from 'rxjs';
-import { Team } from '../shared/models/team.model';
-import { UiService } from '../shared/services/ui.service';
-
-// This interface may be useful in the times ahead...
+import { Team } from '../../shared/models/team.model';
+import { UiService } from '../../shared/services/ui.service';
 
 @Component({
   selector: 'app-member-details',
@@ -22,8 +20,8 @@ import { UiService } from '../shared/services/ui.service';
 export class MemberDetailsComponent implements OnInit {
   memberModel: Member;
   submitted = false;
-  alertType: String;
-  alertMessage: String;
+  alertType: string;
+  alertMessage: string;
   $teams: Observable<Team[]>;
 
   memberForm = this.fb.group({
@@ -45,7 +43,6 @@ export class MemberDetailsComponent implements OnInit {
     this.buildTeamsDropdown();
   }
 
-  // TODO: Add member to members
   onSubmit(form: FormGroup): void {
     this.memberModel = form.value;
     this.addNewMember(this.memberModel);

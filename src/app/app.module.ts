@@ -5,14 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-
 import { AppService } from './app.service';
-
 import { AppComponent } from './app.component';
 import { BannerComponent } from './banner/banner.component';
-import { MemberDetailsComponent } from './member-details/member-details.component';
-import { MembersComponent } from './members/members.component';
-import { ModalComponent } from './components/modal/modal.component';
+import { MemberDetailsComponent } from './components/member-details/member-details.component';
+import { MembersComponent } from './components/members/members.component';
+import { ModalComponent } from './components/members/modal/modal.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 // We may be missing a route...
