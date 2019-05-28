@@ -21,7 +21,7 @@ export const selectTeamsState: MemoizedSelector<
   State
 > = createFeatureSelector<State>('racingStore');
 
-export const selectedMember: MemoizedSelector<
+export const selectMemberState: MemoizedSelector<
   object,
   State
 > = createFeatureSelector<State>('racingStore');
@@ -36,7 +36,7 @@ export const selectTeams: MemoizedSelector<object, Team[]> = createSelector(
   geTeams
 );
 
-export const selectMemeber: MemoizedSelector<object, Member> = createSelector(
-  selectedMember,
+export const selectMember: MemoizedSelector<object, Member> = createSelector(
+  selectMemberState,
   getSelectedMember
 );
