@@ -22,16 +22,15 @@ export class MemberDetailsComponent implements OnInit {
   $teams: Observable<Team[]>;
 
   memberForm = this.fb.group({
-    firstName: [],
-    lastName: [],
-    jobTitle: [],
-    team: [],
-    status: []
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    jobTitle: ['', Validators.required],
+    team: ['', Validators.required],
+    status: ['', Validators.required]
   });
 
   constructor(
     private fb: FormBuilder,
-    private appService: AppService,
     private router: Router,
     private store: Store<{ team: Team[] }>
   ) {}
@@ -58,13 +57,7 @@ export class MemberDetailsComponent implements OnInit {
   }
 
   addNewMember(member: Member): void {
-    this.appService.addMember(member).subscribe(
-      () => {
-        this.router.navigate(['/members']);
-      },
-      error => {
-        console.log('Error', error);
-      }
-    );
+    this.store.dispatch(new RacingActions.AddMember(member));
+    this.router.navigate(['/members']);
   }
 }

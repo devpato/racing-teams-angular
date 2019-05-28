@@ -54,5 +54,17 @@ export class RacingEffects {
     )
   );
 
+  @Effect()
+  addMember$ = this.actions$.pipe(
+    ofType(ActionTypes.ADD_MEMBER),
+    map(action => action['payload']),
+    switchMap(payload =>
+      this.appService.addMember(payload).pipe(
+        map(() => new RacingActions.GetMembers()),
+        catchError(() => of({ type: '[Member API] Memeber Addition Error' }))
+      )
+    )
+  );
+
   constructor(private actions$: Actions, private appService: AppService) {}
 }

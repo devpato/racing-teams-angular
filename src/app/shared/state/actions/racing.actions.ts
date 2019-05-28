@@ -9,7 +9,8 @@ export enum ActionTypes {
   SET_TEAMS_SUCCESS = '[Success Teams] SetTeamsSuccess',
   SET_SELECTED_MEMBER = '[Set Selected Member] Set Selected Member',
   DELETE_SELECTED_MEMBER = '[Delete Selected Member] Delete Selected Member',
-  UPDATE_SELECTED_MEMBER = '[Update Selected Member] Update Selected Member'
+  UPDATE_SELECTED_MEMBER = '[Update Selected Member] Update Selected Member',
+  ADD_MEMBER = '[Add Member] Add Member'
 }
 
 export class GetMembers implements Action {
@@ -45,6 +46,11 @@ export class UpdateSelectedMember implements Action {
   constructor(public payload: number) {}
 }
 
+export class AddMember implements Action {
+  readonly type = ActionTypes.ADD_MEMBER;
+  constructor(public payload: Member) {}
+}
+
 export type RacingActions =
   | GetMembers
   | GetTeams
@@ -52,4 +58,5 @@ export type RacingActions =
   | SetTeamsSuccess
   | SetSelectedMember
   | DeleteSelectedMember
-  | UpdateSelectedMember;
+  | UpdateSelectedMember
+  | AddMember;
