@@ -53,11 +53,11 @@ export class ModalComponent implements OnInit {
       this.selectedMember = selectedMember;
       if (this.selectedMember) {
         this.memberForm = this.fb.group({
-          firstName: [selectedMember.firstName],
-          lastName: [selectedMember.lastName],
-          jobTitle: [selectedMember.jobTitle],
-          team: [selectedMember.team],
-          status: [selectedMember.status]
+          firstName: [selectedMember.firstName, Validators.required],
+          lastName: [selectedMember.lastName, Validators.required],
+          jobTitle: [selectedMember.jobTitle, Validators.required],
+          team: [selectedMember.team, Validators.required],
+          status: [selectedMember.status, Validators.required]
         });
       }
     });
