@@ -11,28 +11,47 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form [formGroup]="memberForm" (ngSubmit)="onSubmit(memberForm)">
       <div class="form-group">
         <label for="exampleInputEmail1">First Name</label>
-        <input type="text" class="form-control" placeholder="First Name" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="First Name"
+          formControlName="firstName"
+          required
+        />
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Last Name</label>
-        <input type="text" class="form-control" placeholder="Last Name" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Last Name"
+          formControlName="lastName"
+          required
+        />
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Job Title</label>
-        <input type="text" class="form-control" placeholder="Job Title" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Job Title"
+          formControlName="jobTitle"
+          required
+        />
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Racing Team</label>
         <div class="form-group">
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <select class="form-control" formControlName="team" required>
+            <option selected>--SELECT A TEAM--</option>
+            <option
+              *ngFor="let team of $teams | async as teams"
+              [value]="team.teamName"
+              >{{ team.teamName }}</option
+            >
           </select>
         </div>
       </div>
@@ -41,8 +60,9 @@
           <input
             class="form-check-input"
             type="radio"
-            name="inlineRadioOptions"
-            value="option1"
+            value="Active"
+            name="status"
+            formControlName="status"
           />
           <label class="form-check-label" for="inlineRadio1">Active</label>
         </div>
@@ -50,21 +70,18 @@
           <input
             class="form-check-input"
             type="radio"
-            name="inlineRadioOptions"
-            value="option2"
+            value="Inactive"
+            name="status"
+            formControlName="status"
           />
           <label class="form-check-label" for="inlineRadio2">Inactive</label>
         </div>
       </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark">
+          Update
+        </button>
+      </div>
     </form>
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-outline-dark"
-      (click)="modal.close('Save click')"
-    >
-      Update
-    </button>
   </div>
 </ng-template>

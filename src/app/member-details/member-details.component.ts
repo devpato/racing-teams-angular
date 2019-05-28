@@ -9,6 +9,7 @@ import { AppService } from '../app.service';
 import { Router } from '@angular/router';
 import { Member } from '../shared/models/member.model';
 import { Observable } from 'rxjs';
+import { Team } from '../shared/models/team.model';
 
 // This interface may be useful in the times ahead...
 
@@ -22,7 +23,7 @@ export class MemberDetailsComponent implements OnInit {
   submitted = false;
   alertType: String;
   alertMessage: String;
-  $teams: Observable<any>;
+  $teams: Observable<Team[]>;
 
   memberForm = this.fb.group({
     firstName: [],
@@ -61,21 +62,5 @@ export class MemberDetailsComponent implements OnInit {
         console.log('Error', error);
       }
     );
-  }
-
-  deleteMember(id: number): void {
-    this.appService.deleteMember(id);
-  }
-
-  updateMember(): void {
-    const member = {
-      firstName: 'qqqqqq',
-      id: 3,
-      jobTitle: 'ux',
-      lastName: 'aaaa',
-      status: 'Active',
-      team: 'Formula 1 - Car 8'
-    };
-    this.appService.updateMember(member);
   }
 }

@@ -38,7 +38,6 @@
             required
           />
         </div>
-        <!--We may have to make a service call to get this list-->
         <select
           id="team"
           formControlName="team"
@@ -46,9 +45,11 @@
           required
         >
           <option selected>--SELECT A TEAM--</option>
-          <option *ngFor="let team of $teams | async as teams">{{
-            team.teamName
-          }}</option>
+          <option
+            *ngFor="let team of $teams | async as teams"
+            value="{{ team.teamName }}"
+            >{{ team.teamName }}</option
+          >
         </select>
       </div>
       <br />
