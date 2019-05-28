@@ -9,6 +9,7 @@ import { Team } from '../../models/team.model';
 
 const getMembers = (state: State): Member[] => state.members;
 const geTeams = (state: State): Team[] => state.teams;
+const getSelectedMember = (state: State): Member => state.selectedMember;
 
 export const selectMembersState: MemoizedSelector<
   object,
@@ -16,6 +17,11 @@ export const selectMembersState: MemoizedSelector<
 > = createFeatureSelector<State>('racingStore');
 
 export const selectTeamsState: MemoizedSelector<
+  object,
+  State
+> = createFeatureSelector<State>('racingStore');
+
+export const selectedMember: MemoizedSelector<
   object,
   State
 > = createFeatureSelector<State>('racingStore');
@@ -28,4 +34,9 @@ export const selectMembers: MemoizedSelector<object, Member[]> = createSelector(
 export const selectTeams: MemoizedSelector<object, Team[]> = createSelector(
   selectTeamsState,
   geTeams
+);
+
+export const selectMemeber: MemoizedSelector<object, Member> = createSelector(
+  selectedMember,
+  getSelectedMember
 );
