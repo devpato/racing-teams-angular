@@ -2,16 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Member } from 'src/app/shared/models/member.model';
 import { AppService } from 'src/app/app.service';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Team } from 'src/app/shared/models/team.model';
-import { UiService } from 'src/app/shared/services/ui.service';
 import * as RacingSelectors from '../../..//shared/state/selectors/racing.selector';
+import * as RacingActions from '../../../shared/state/actions/racing.actions';
 import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-modal',
@@ -29,7 +24,6 @@ export class ModalComponent implements OnInit {
     private modalService: NgbModal,
     private appService: AppService,
     private fb: FormBuilder,
-    private uiService: UiService,
     private store: Store<{ memebers: Member[] }>
   ) {}
 
@@ -52,29 +46,32 @@ export class ModalComponent implements OnInit {
   }
 
   getSelectedMember() {
-    this.appService.dataSelectedMember.subscribe(selectedMember => {
-      this.selectedMember = selectedMember;
-      if (this.selectedMember) {
-        this.memberForm = this.fb.group({
-          firstName: [selectedMember.firstName, Validators.required],
-          lastName: [selectedMember.lastName, Validators.required],
-          jobTitle: [selectedMember.jobTitle, Validators.required],
-          team: [selectedMember.team, Validators.required],
-          status: [selectedMember.status, Validators.required]
-        });
-      }
-    });
+    this.store
+      .select(RacingSelectors.selectMember)
+      .subscribe(selectedMember => {
+        this.selectedMember = selectedMember;
+        if (this.selectedMember) {
+          this.memberForm = this.fb.group({
+            firstName: [selectedMember.firstName, Validators.required],
+            lastName: [selectedMember.lastName, Validators.required],
+            jobTitle: [selectedMember.jobTitle, Validators.required],
+            team: [selectedMember.team, Validators.required],
+            status: [selectedMember.status, Validators.required]
+          });
+        }
+      });
   }
 
   onSubmit(form: FormGroup): void {
     const SELECTED_MEMBER = { ...form.value, id: this.selectedMember.id };
     this.appService.updateMember(SELECTED_MEMBER).subscribe(
       () => {
-        this.uiService.setReloadStatus(true);
         this.modalService.dismissAll();
+        this.store.dispatch(new RacingActions.SetSelectedMember(null));
+        this.store.dispatch(new RacingActions.GetMembers());
       },
       error => {
-        this.uiService.setReloadStatus(true);
+        this.store.dispatch(new RacingActions.SetSelectedMember(null));
         console.log('Error', error);
       }
     );
