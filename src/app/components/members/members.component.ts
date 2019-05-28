@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { Member } from '../../shared/models/member.model';
 import { ModalComponent } from './modal/modal.component';
 import { UiService } from '../../shared/services/ui.service';
-
+import { Store } from '@ngrx/store';
+import * as RacingSelectors from '../../shared/state/selectors/racing.selector';
+import * as RacingActions from '../../shared/state/actions/racing.actions';
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
@@ -18,10 +20,13 @@ export class MembersComponent implements OnInit {
   constructor(
     private appService: AppService,
     private router: Router,
-    private uiService: UiService
+    private uiService: UiService,
+    private store: Store<{ memebers: Member[] }>
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(new RacingActions.GetMembers());
+    this.store.dispatch(new RacingActions.GetTeams());
     this.getReloadStatus();
     this.pullMembers();
   }
@@ -40,7 +45,7 @@ export class MembersComponent implements OnInit {
   }
 
   pullMembers(): void {
-    this.$members = this.appService.getMembers();
+    this.$members = this.store.select(RacingSelectors.selectMembers);
   }
 
   editMemberByID(member: Member): void {
