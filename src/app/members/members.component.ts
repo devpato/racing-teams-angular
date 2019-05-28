@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Member } from '../shared/models/member.model';
 import { ModalComponent } from '../components/modal/modal.component';
+import { UiService } from '../shared/services/ui.service';
 
 @Component({
   selector: 'app-members',
@@ -14,14 +15,28 @@ export class MembersComponent implements OnInit {
   $members: Observable<Member[]>;
   @ViewChild('myModal') modal: ModalComponent;
 
-  constructor(private appService: AppService, private router: Router) {}
+  constructor(
+    private appService: AppService,
+    private router: Router,
+    private uiService: UiService
+  ) {}
 
   ngOnInit() {
+    this.getReloadStatus();
     this.pullMembers();
   }
 
-  goToAddMemberForm() {
+  goToAddMemberForm(): void {
     this.router.navigate(['/details']);
+  }
+
+  getReloadStatus(): void {
+    this.uiService.dataReloadStatus.subscribe(status => {
+      if (status || status == null) {
+        this.pullMembers();
+        this.uiService.setReloadStatus(false);
+      }
+    });
   }
 
   pullMembers(): void {

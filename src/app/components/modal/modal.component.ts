@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Team } from 'src/app/shared/models/team.model';
+import { UiService } from 'src/app/shared/services/ui.service';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -25,7 +26,8 @@ export class ModalComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private appService: AppService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private uiService: UiService
   ) {}
 
   ngOnInit() {
@@ -65,9 +67,11 @@ export class ModalComponent implements OnInit {
     const SELECTED_MEMBER = { ...form.value, id: this.selectedMember.id };
     this.appService.updateMember(SELECTED_MEMBER).subscribe(
       () => {
+        this.uiService.setReloadStatus(true);
         this.modalService.dismissAll();
       },
       error => {
+        this.uiService.setReloadStatus(true);
         console.log('Error', error);
       }
     );

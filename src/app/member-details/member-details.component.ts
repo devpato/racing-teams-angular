@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Member } from '../shared/models/member.model';
 import { Observable } from 'rxjs';
 import { Team } from '../shared/models/team.model';
+import { UiService } from '../shared/services/ui.service';
 
 // This interface may be useful in the times ahead...
 
@@ -36,7 +37,8 @@ export class MemberDetailsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private appService: AppService,
-    private router: Router
+    private router: Router,
+    private uiService: UiService
   ) {}
 
   ngOnInit(): void {
