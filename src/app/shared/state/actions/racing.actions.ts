@@ -19,7 +19,9 @@ export class GetTeams implements Action {
 
 export class SetMembersSuccess implements Action {
   readonly type = ActionTypes.SET_MEMBERS_SUCCESS;
-  constructor(public payload: Member[]) {}
+  constructor(public payload: Member[]) {
+    console.log('payload', payload);
+  }
 }
 
 export class SetTeamsSuccess implements Action {
