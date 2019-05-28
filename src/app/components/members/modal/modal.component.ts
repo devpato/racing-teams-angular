@@ -11,6 +11,8 @@ import {
 import { Observable } from 'rxjs';
 import { Team } from 'src/app/shared/models/team.model';
 import { UiService } from 'src/app/shared/services/ui.service';
+import * as RacingSelectors from '../../..//shared/state/selectors/racing.selector';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -27,7 +29,8 @@ export class ModalComponent implements OnInit {
     private modalService: NgbModal,
     private appService: AppService,
     private fb: FormBuilder,
-    private uiService: UiService
+    private uiService: UiService,
+    private store: Store<{ memebers: Member[] }>
   ) {}
 
   ngOnInit() {
@@ -78,6 +81,6 @@ export class ModalComponent implements OnInit {
   }
 
   buildTeamsDropdown(): void {
-    this.$teams = this.appService.getTeams();
+    this.$teams = this.store.select(RacingSelectors.selectTeams);
   }
 }
