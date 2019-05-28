@@ -14,7 +14,7 @@ import { UiService } from 'src/app/shared/services/ui.service';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+  styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
   closeResult: string;

@@ -15,7 +15,7 @@ import { UiService } from '../../shared/services/ui.service';
 @Component({
   selector: 'app-member-details',
   templateUrl: './member-details.component.html',
-  styleUrls: ['./member-details.component.css']
+  styleUrls: ['./member-details.component.scss']
 })
 export class MemberDetailsComponent implements OnInit {
   memberModel: Member;

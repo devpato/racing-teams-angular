@@ -11,14 +11,14 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-}
-i {
-  cursor: pointer;
-}
-.edit {
-  color: gold;
-}
+  i {
+    cursor: pointer;
+  }
+  .edit {
+    color: gold;
+  }
 
-.delete {
-  color: red;
+  .delete {
+    color: red;
+  }
 }
