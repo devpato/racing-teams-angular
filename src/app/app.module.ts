@@ -12,6 +12,7 @@ import { MemberDetailsComponent } from './components/member-details/member-detai
 import { MembersComponent } from './components/members/members.component';
 import { ModalComponent } from './components/members/modal/modal.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgrxModule } from './shared/modules/ngrx.module';
 
 // We may be missing a route...
 const ROUTES = [
@@ -46,7 +47,8 @@ const ROUTES = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    NgbModalModule
+    NgbModalModule,
+    NgrxModule
   ],
   providers: [AppService, HttpClient],
   bootstrap: [AppComponent]
