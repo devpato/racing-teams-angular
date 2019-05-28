@@ -9,12 +9,23 @@ import { AppService } from 'src/app/app.service';
 @Injectable()
 export class RacingEffects {
   @Effect()
-  memebers$ = this.actions$.pipe(
+  members$ = this.actions$.pipe(
     ofType(ActionTypes.GET_MEMBERS),
     switchMap(() =>
       this.appService.getMembers().pipe(
         map(res => new RacingActions.SetMembersSuccess(res)),
-        catchError(() => of({ type: '[Members API] Users Loaded Error' }))
+        catchError(() => of({ type: '[Members API] Members Loaded Error' }))
+      )
+    )
+  );
+
+  @Effect()
+  teams$ = this.actions$.pipe(
+    ofType(ActionTypes.GET_TEAMS),
+    switchMap(() =>
+      this.appService.getTeams().pipe(
+        map(res => new RacingActions.SetTeamsSuccess(res)),
+        catchError(() => of({ type: '[Teams API] Teams Loaded Error' }))
       )
     )
   );
