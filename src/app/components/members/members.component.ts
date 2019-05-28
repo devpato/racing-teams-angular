@@ -42,13 +42,6 @@ export class MembersComponent implements OnInit {
   }
 
   deleteMemberById(id: number): void {
-    this.appService.deleteMember(id).subscribe(
-      () => {
-        this.store.dispatch(new RacingActions.GetMembers());
-      },
-      error => {
-        console.log('Error', error);
-      }
-    );
+    this.store.dispatch(new RacingActions.DeleteSelectedMember(id));
   }
 }

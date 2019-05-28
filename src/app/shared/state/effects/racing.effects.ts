@@ -30,5 +30,29 @@ export class RacingEffects {
     )
   );
 
+  @Effect()
+  deleteMember$ = this.actions$.pipe(
+    ofType(ActionTypes.DELETE_SELECTED_MEMBER),
+    map(action => action['payload']),
+    switchMap(payload =>
+      this.appService.deleteMember(payload).pipe(
+        map(() => new RacingActions.GetMembers()),
+        catchError(() => of({ type: '[Member API] Memeber Deletion Error' }))
+      )
+    )
+  );
+
+  @Effect()
+  updateMember$ = this.actions$.pipe(
+    ofType(ActionTypes.UPDATE_SELECTED_MEMBER),
+    map(action => action['payload']),
+    switchMap(payload =>
+      this.appService.updateMember(payload).pipe(
+        map(() => new RacingActions.GetMembers()),
+        catchError(() => of({ type: '[Member API] Memeber Update Error' }))
+      )
+    )
+  );
+
   constructor(private actions$: Actions, private appService: AppService) {}
 }

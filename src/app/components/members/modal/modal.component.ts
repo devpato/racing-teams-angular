@@ -64,17 +64,11 @@ export class ModalComponent implements OnInit {
 
   onSubmit(form: FormGroup): void {
     const SELECTED_MEMBER = { ...form.value, id: this.selectedMember.id };
-    this.appService.updateMember(SELECTED_MEMBER).subscribe(
-      () => {
-        this.modalService.dismissAll();
-        this.store.dispatch(new RacingActions.SetSelectedMember(null));
-        this.store.dispatch(new RacingActions.GetMembers());
-      },
-      error => {
-        this.store.dispatch(new RacingActions.SetSelectedMember(null));
-        console.log('Error', error);
-      }
+    this.store.dispatch(
+      new RacingActions.UpdateSelectedMember(SELECTED_MEMBER)
     );
+    this.store.dispatch(new RacingActions.SetSelectedMember(null));
+    this.modalService.dismissAll();
   }
 
   buildTeamsDropdown(): void {
