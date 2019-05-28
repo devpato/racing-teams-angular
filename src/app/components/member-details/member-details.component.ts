@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Router } from '@angular/router';
 import { Member } from '../../shared/models/member.model';
 import { Observable } from 'rxjs';
 import { Team } from '../../shared/models/team.model';
-import { UiService } from '../../shared/services/ui.service';
-
+import { Store } from '@ngrx/store';
+import * as RacingSelectors from '../../shared/state/selectors/racing.selector';
+import { map } from 'rxjs/operators';
+import * as RacingActions from '../../shared/state/actions/racing.actions';
 @Component({
   selector: 'app-member-details',
   templateUrl: './member-details.component.html',
@@ -36,7 +33,7 @@ export class MemberDetailsComponent implements OnInit {
     private fb: FormBuilder,
     private appService: AppService,
     private router: Router,
-    private uiService: UiService
+    private store: Store<{ team: Team[] }>
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +46,15 @@ export class MemberDetailsComponent implements OnInit {
   }
 
   buildTeamsDropdown(): void {
-    this.$teams = this.appService.getTeams();
+    this.$teams = this.store.select(RacingSelectors.selectTeams).pipe(
+      map(teams => {
+        if (teams === null) {
+          this.store.dispatch(new RacingActions.GetTeams());
+        } else {
+          return teams;
+        }
+      })
+    );
   }
 
   addNewMember(member: Member): void {
