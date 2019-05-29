@@ -12,6 +12,11 @@ describe('MembersComponent', () => {
   let component: MembersComponent;
   let fixture: ComponentFixture<MembersComponent>;
 
+  const storeMock = {
+    select() {
+      return of({ teams: [], members: [] });
+    }
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -21,7 +26,7 @@ describe('MembersComponent', () => {
         StoreModule.forRoot({})
       ],
       declarations: [MembersComponent, ModalComponent],
-      providers: [Store, MockStore]
+      providers: [{ provide: Store, useValue: storeMock }]
     }).compileComponents();
   }));
 
@@ -35,15 +40,3 @@ describe('MembersComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-class MockStore {
-  public dispatch(obj) {
-    console.log('dispatching from the mock store!');
-  }
-
-  public select(obj) {
-    console.log('selecting from the mock store!');
-
-    return of({});
-  }
-}

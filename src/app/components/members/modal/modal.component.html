@@ -47,11 +47,9 @@
         <div class="form-group">
           <select class="form-control" formControlName="team" required>
             <option selected>--SELECT A TEAM--</option>
-            <option
-              *ngFor="let team of $teams | async"
-              [value]="team.teamName"
-              >{{ team.teamName }}</option
-            >
+            <option *ngFor="let team of teams" [value]="team.teamName">{{
+              team.teamName
+            }}</option>
           </select>
         </div>
       </div>

@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Member } from 'src/app/shared/models/member.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Team } from 'src/app/shared/models/team.model';
-import * as RacingSelectors from '../../..//shared/state/selectors/racing.selector';
+import * as RacingSelectors from '../../../shared/state/selectors/racing.selector';
 import * as RacingActions from '../../../shared/state/actions/racing.actions';
 import { Store } from '@ngrx/store';
 @Component({
@@ -12,12 +12,14 @@ import { Store } from '@ngrx/store';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements OnInit, OnDestroy {
   closeResult: string;
   @ViewChild('content') content: any;
   selectedMember: Member;
   memberForm: FormGroup;
-  $teams: Observable<Team[]>;
+  smSubscription: Subscription;
+  @Input()
+  teams: Team[];
 
   constructor(
     private modalService: NgbModal,
@@ -27,7 +29,6 @@ export class ModalComponent implements OnInit {
 
   ngOnInit() {
     this.getSelectedMember();
-    this.buildTeamsDropdown();
   }
 
   open() {
@@ -44,7 +45,7 @@ export class ModalComponent implements OnInit {
   }
 
   getSelectedMember() {
-    this.store
+    this.smSubscription = this.store
       .select(RacingSelectors.selectMember)
       .subscribe(selectedMember => {
         this.selectedMember = selectedMember;
@@ -69,7 +70,9 @@ export class ModalComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  buildTeamsDropdown(): void {
-    this.$teams = this.store.select(RacingSelectors.selectTeams);
+  ngOnDestroy() {
+    if (this.smSubscription) {
+      this.smSubscription.unsubscribe();
+    }
   }
 }
