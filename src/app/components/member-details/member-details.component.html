@@ -46,7 +46,7 @@
         >
           <option selected>--SELECT A TEAM--</option>
           <option
-            *ngFor="let team of $teams | async as teams"
+            *ngFor="let team of $teams | async"
             value="{{ team.teamName }}"
             >{{ team.teamName }}</option
           >

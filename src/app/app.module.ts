@@ -31,7 +31,6 @@ const ROUTES = [
   }
 ];
 
-// Notice how both FormsModule and ReactiveFormsModule imported...choices, choices!
 @NgModule({
   declarations: [
     AppComponent,

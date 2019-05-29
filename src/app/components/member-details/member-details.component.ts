@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppService } from '../../app.service';
 import { Router } from '@angular/router';
 import { Member } from '../../shared/models/member.model';
 import { Observable } from 'rxjs';

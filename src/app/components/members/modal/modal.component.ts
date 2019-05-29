@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Member } from 'src/app/shared/models/member.model';
-import { AppService } from 'src/app/app.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Team } from 'src/app/shared/models/team.model';
@@ -23,7 +22,7 @@ export class ModalComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private store: Store<{ memebers: Member[] }>
+    private store: Store<{ members: Member[]; teams: Team[] }>
   ) {}
 
   ngOnInit() {

@@ -1,9 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MembersComponent } from './members.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
+import { ModalComponent } from './modal/modal.component';
+import { Observable, of } from 'rxjs';
 
 describe('MembersComponent', () => {
   let component: MembersComponent;
@@ -12,12 +15,13 @@ describe('MembersComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
+        StoreModule.forRoot({})
       ],
-      declarations: [MembersComponent]
+      declarations: [MembersComponent, ModalComponent],
+      providers: [Store, MockStore]
     }).compileComponents();
   }));
 
@@ -31,3 +35,15 @@ describe('MembersComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class MockStore {
+  public dispatch(obj) {
+    console.log('dispatching from the mock store!');
+  }
+
+  public select(obj) {
+    console.log('selecting from the mock store!');
+
+    return of({});
+  }
+}

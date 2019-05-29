@@ -3,7 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MemberDetailsComponent } from './member-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 
 // Bonus points!
 describe('MemberDetailsComponent', () => {
@@ -17,8 +18,10 @@ describe('MemberDetailsComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        RouterTestingModule
-      ]
+        RouterTestingModule,
+        StoreModule.forRoot({})
+      ],
+      providers: [Store]
     }).compileComponents();
   }));
 
